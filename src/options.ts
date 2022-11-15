@@ -5,4 +5,6 @@ export interface Options {
   monthStartIndexZero?: boolean;
   use24HourTimeFormat?: boolean;
   locale?: string | null;
+  mustUseBlankDayField?: boolean;
+  allowOnlyOneBlankDayField?: boolean;
 }

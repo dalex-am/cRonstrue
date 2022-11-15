@@ -1,4 +1,4 @@
-import 'mocha';
+import "mocha";
 import chai = require("chai");
 import { CronParser } from "../src/cronParser";
 let assert = chai.assert;

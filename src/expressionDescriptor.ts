@@ -39,6 +39,8 @@ export class ExpressionDescriptor {
       monthStartIndexZero = false,
       use24HourTimeFormat,
       locale = null,
+      allowOnlyOneBlankDayField = false,
+      mustUseBlankDayField = false,
     }: Options = {}
   ): string {
     // We take advantage of Destructuring Object Parameters (and defaults) in TS/ES6 and now we will reassemble back to
@@ -51,6 +53,8 @@ export class ExpressionDescriptor {
       monthStartIndexZero: monthStartIndexZero,
       use24HourTimeFormat: use24HourTimeFormat,
       locale: locale,
+      allowOnlyOneBlankDayField: allowOnlyOneBlankDayField,
+      mustUseBlankDayField: mustUseBlankDayField,
     };
 
     let descripter = new ExpressionDescriptor(expression, options);
@@ -97,7 +101,9 @@ export class ExpressionDescriptor {
       let parser = new CronParser(
         this.expression,
         this.options.dayOfWeekStartIndexZero,
-        this.options.monthStartIndexZero
+        this.options.monthStartIndexZero,
+        this.options.mustUseBlankDayField,
+        this.options.allowOnlyOneBlankDayField
       );
       this.expressionParts = parser.parse();
       var timeSegment = this.getTimeOfDayDescription();

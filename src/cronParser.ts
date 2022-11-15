@@ -9,15 +9,21 @@ export class CronParser {
   expression: string;
   dayOfWeekStartIndexZero: boolean;
   monthStartIndexZero: boolean;
+  mustUseBlankDayField: boolean;
+  allowOnlyOneBlankDayField: boolean;
 
   constructor(
     expression: string,
     dayOfWeekStartIndexZero: boolean = true,
-    monthStartIndexZero: boolean = false
+    monthStartIndexZero: boolean = false,
+    mustUseBlankDayField: boolean = false,
+    allowOnlyOneBlankDayField: boolean = false
   ) {
     this.expression = expression;
     this.dayOfWeekStartIndexZero = dayOfWeekStartIndexZero;
     this.monthStartIndexZero = monthStartIndexZero;
+    this.mustUseBlankDayField = mustUseBlankDayField;
+    this.allowOnlyOneBlankDayField = allowOnlyOneBlankDayField;
   }
 
   /**
@@ -26,6 +32,7 @@ export class CronParser {
    */
   parse(): string[] {
     let parsed = this.extractParts(this.expression);
+    this.validateBlanks(parsed[5], parsed[3]);
     this.normalize(parsed);
     this.validate(parsed);
 
@@ -242,7 +249,7 @@ export class CronParser {
       */
 
       if (expressionParts[i].indexOf("/") > -1 && !/^\*|\-|\,/.test(expressionParts[i])) {
-        let stepRangeThrough: string|null = null;
+        let stepRangeThrough: string | null = null;
         switch (i) {
           case 4:
             stepRangeThrough = "12";
@@ -286,6 +293,15 @@ export class CronParser {
     let invalidChars = expression.match(/[A-KM-VX-Z]+/gi);
     if (invalidChars && invalidChars.length) {
       throw new Error(`${partDescription} part contains invalid values: '${invalidChars.toString()}'`);
+    }
+  }
+
+  protected validateBlanks(dowExpression: string, domExpression: string) {
+    if (this.mustUseBlankDayField && dowExpression !== "?" && domExpression !== "?") {
+      throw new Error("Cannot specify both daysOfMonth and daysOfWeek field.");
+    }
+    if (this.allowOnlyOneBlankDayField && dowExpression === "?" && domExpression === "?") {
+      throw new Error("Cannot use blank value in daysOfMonth and daysOfWeek field.");
     }
   }
 }

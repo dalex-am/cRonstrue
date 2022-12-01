@@ -82,7 +82,7 @@
 <li>Supports all cron expression special characters including * / , - ? L W, #</li>
 <li>Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron expressions</li>
 <li>Supports <a href="http://www.quartz-scheduler.org/">Quartz Job Scheduler</a> cron expressions</li>
-<li>i18n support with 30 languages</li>
+<li>i18n support with 34 languages</li>
 </ul>
 <h2 id="demo">Demo</h2>
 <p>A demo is available <a href="http://bradymholt.github.io/cRonstrue/#cronstrue-demo">here</a>.</p>
@@ -134,6 +134,20 @@ cronstrue.toString(&quot;* * * 6-8 *&quot;, { monthStartIndexZero: true });
 &gt; &quot;Every minute, July through September&quot;
 </code></pre>
 <p>For more usage examples, including a demonstration of how cRonstrue can handle some very complex cron expressions, you can <a href="https://github.com/bradymholt/cRonstrue/blob/master/test/cronstrue.ts">reference the unit tests</a>.</p>
+<h3 id="cli-usage">CLI Usage</h3>
+<pre><code class="language-sh">$ npm install -g cronstrue
+
+$ cronstrue 1 2 3 4 5
+At 02:01 AM, on day 3 of the month, and on Friday, only in April
+
+$ cronstrue 1 2 3
+Error: too few arguments (3): 1 2 3
+Usage (5 args): cronstrue minute hour day-of-month month day-of-week
+or
+Usage (6 args): cronstrue second minute hour day-of-month month day-of-week
+or
+Usage (7 args): cronstrue second minute hour day-of-month month day-of-week year
+</code></pre>
 <h2 id="options">Options</h2>
 <p>An options object can be passed as the second parameter to <code>cronstrue.toString</code>.  The following options are available:</p>
 <ul>
@@ -192,6 +206,7 @@ cronstrue.toString(&quot;*/5 * * * *&quot;, { locale: &quot;es&quot; }); // =&gt
 <h3 id="supported-locales">Supported Locales</h3>
 <ul>
 <li>en - English (<a href="https://github.com/bradymholt">Brady Holt</a>)</li>
+<li>ar - Arabic (<a href="https://github.com/mohamednehad450">Mohamed Nehad Shalabi</a>)</li>
 <li>ca - Catalan (<a href="https://github.com/fjbarrena">Francisco Javier Barrena</a>)</li>
 <li>cs - Czech (<a href="https://github.com/hanbar">hanbar</a>)</li>
 <li>es - Spanish (<a href="https://github.com/ivansg">Ivan Santos</a>)</li>

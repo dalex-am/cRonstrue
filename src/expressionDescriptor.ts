@@ -399,7 +399,7 @@ export class ExpressionDescriptor {
         return this.i18n.commaMonthX0ThroughMonthX1() || this.i18n.commaX0ThroughX1();
       },
       (s) => {
-        return this.i18n.commaOnlyInMonthX0 ? this.i18n.commaOnlyInMonthX0() : this.i18n.commaOnlyInX0();
+        return this.i18n.commaOnlyInMonthX0 ? this.i18n.commaOnlyInMonthX0(s) : this.i18n.commaOnlyInX0();
       }
     );
 
@@ -510,7 +510,7 @@ export class ExpressionDescriptor {
       description = allDescription;
     } else if (!doesExpressionContainIncrement && !doesExpressionContainRange && !doesExpressionContainMultipleValues) {
       // Simple
-      description = StringUtilities.format(getDescriptionFormat(expression), getSingleItemDescription(expression));
+      description = StringUtilities.format(getDescriptionFormat(expression), getSingleItemDescription(expression, 3));
     } else if (doesExpressionContainMultipleValues) {
       // Multiple Values
 
@@ -549,7 +549,7 @@ export class ExpressionDescriptor {
 
           descriptionContent += currentDescriptionContent;
         } else if (!doesExpressionContainIncrement) {
-          descriptionContent += getSingleItemDescription(segments[i]);
+          descriptionContent += getSingleItemDescription(segments[i], 3);
         } else {
           descriptionContent += this.getSegmentDescription(
             segments[i],

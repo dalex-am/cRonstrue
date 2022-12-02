@@ -45,7 +45,7 @@ export interface Locale {
   commaAndOnX0(): string;
   commaEveryX0Months(s?: string): string;
   commaOnlyInX0(): string;
-  commaOnlyInMonthX0?(): string;
+  commaOnlyInMonthX0?(s?: string): string;
   commaOnlyInYearX0?(): string;
   commaOnTheLastDayOfTheMonth(): string;
   commaOnTheLastWeekdayOfTheMonth(): string;
@@ -61,13 +61,13 @@ export interface Locale {
   dayX0?(): string;
   daysOfTheWeek(): string[];
   /** If multiple forms are needed in "%s through %s"
-   * @param f 1 for "from", 2 for "through"
+   * @param f 1 for "from", 2 for "through" and "on"
    * @return {string[]} days of week
    */
   daysOfTheWeekInCase?(f?: number): string[];
   monthsOfTheYear(): string[];
   /** If multiple forms are needed in "%s through %s"
-   * @param f 1 for "from", 2 for "through"
+   * @param f 1 for "from", 2 for "through", 3 for "on"
    * @return {string[]} months of year
    */
   monthsOfTheYearInCase?(f?: number): string[];
